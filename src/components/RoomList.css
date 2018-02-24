@@ -1,0 +1,24 @@
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.sidebar {
+  height: 700px;
+  width: 20%;
+  background-color: #40b3c1;
+}
+.sidebar h1 {
+  color: white;
+  padding-top: 10px;
+  padding-left: 30px;
+}
+.room-list {
+  list-style-type: none;
+  padding: 10px;
+}
+.room-list li {
+  color: white;
+  padding: 20px;
+  padding-left: 35px;
+}
