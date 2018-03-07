@@ -1,0 +1,19 @@
+.message-list {
+  display: inline;
+  text-align: center;
+  padding: 80px;
+}
+.user {
+  display: inline;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #40b3c1;
+}
+.content {
+  display:inline;
+  font-weight: bold;
+}
+.time-sent {
+  display: inline;
+  padding-left: 20px;
+}
