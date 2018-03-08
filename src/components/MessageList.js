@@ -15,9 +15,6 @@ constructor (props) {
 
     this.messagesRef = this.props.firebase.database().ref('messages');
   }
-componentWillReceiveProps(nextProps) {
-    currentMessages: this.state.messages.filter( message => message.roomId === this.props.currentRoom )
-  }
 
 componentDidMount() {
         this.messagesRef.on('child_added', snapshot => {
@@ -28,7 +25,13 @@ componentDidMount() {
         });
       }
 
-render () {
+componentWillReceiveProps(nextProps) {
+        const currentRoom = this.props;
+        const currentMessages = this.setState({ messages: this.state.messages.filter( message => message.roomId === currentRoom.key )});
+      }
+
+
+render() {
 
   return (
     <div className="message-list">

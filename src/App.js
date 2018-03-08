@@ -29,7 +29,7 @@ import * as firebase from 'firebase';
     render() {
       return (
         <div className= "App">
-         <RoomList firebase= {firebase} openRoom={(room) => {this.openRoom(room)} }/>
+         <RoomList firebase= {firebase} currentRoom={this.state.currentRoom} openRoom={(room) => {this.openRoom(room)} }/>
          <MessageList firebase= {firebase} currentRoom={this.state.currentRoom}  />
          </div>
    );
