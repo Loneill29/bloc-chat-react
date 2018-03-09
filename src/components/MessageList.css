@@ -17,3 +17,19 @@
   display: inline;
   padding-left: 20px;
 }
+#add-message {
+  margin-top: 400px;
+  float: left;
+  padding-left: 300px;
+}
+
+#add-message .textInput {
+  padding-bottom: 30px;
+  padding-right: 120px;
+  margin-bottom: 10px;
+  display: block;
+}
+#add-message .send-button {
+  float: left;
+  padding-left: 300px;
+}

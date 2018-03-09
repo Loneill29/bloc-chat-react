@@ -11,25 +11,32 @@ constructor (props) {
       username: "",
       content: "",
       sentAt: "",
-    };
+      newMessage: ""
+   };
 
-    this.messagesRef = this.props.firebase.database().ref('messages');
-  }
-
+this.messagesRef = this.props.firebase.database().ref('messages');
+}
 componentDidMount() {
-        this.messagesRef.on('child_added', snapshot => {
-        const message = snapshot.val();
-        message.key = snapshot.key;
-        this.setState({ messages: this.state.messages.concat( message ) })
-
-        });
-      }
-
+    this.messagesRef.on('child_added', snapshot => {
+    const message = snapshot.val();
+    message.key = snapshot.key;
+    this.setState({ messages: this.state.messages.concat( message ) })
+    });
+}
 componentWillReceiveProps(nextProps) {
-        const currentRoom = this.props;
-        const currentMessages = this.setState({ messages: this.state.messages.filter( message => message.roomId === currentRoom.key )});
-      }
-
+    const currentRoom = nextProps.currentRoom;
+    console.log(nextProps);
+    this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom)}, () => console.log(this.state));
+}
+createMessage(newMessage) {
+      this.messagesRef.push({
+    content: newMessage,
+    });
+    this.setState({ newMessage: '' }, {});
+}
+handleChange(event) {
+    this.setState({newMessage: event.target.value, sentAt: this.props.firebase.database.ServerValue.TIMESTAMP });
+}
 
 render() {
 
@@ -44,11 +51,10 @@ render() {
             <p className="content">{message.content}</p>
             <p className="time-sent">{message.sentAt}</p>
           </div>
-        )
-      }
+         )
+       }
     </div>
   );
-}
-
+ }
 }
 export default MessageList;

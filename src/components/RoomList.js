@@ -9,30 +9,30 @@ constructor(props) {
     this.state = {
     rooms: [],
     newRoomName: ''
-  };
+};
 
 this.roomsRef = this.props.firebase.database().ref('rooms');
 
 }
 
 componentDidMount() {
-      this.roomsRef.on('child_added', snapshot => {
-      const room = snapshot.val();
-      room.key = snapshot.key;
-      this.setState({ rooms: this.state.rooms.concat( room ) })
-      });
-    }
+    this.roomsRef.on('child_added', snapshot => {
+    const room = snapshot.val();
+    room.key = snapshot.key;
+    this.setState({ rooms: this.state.rooms.concat( room ) })
+    });
+}
 
 createRoom(newRoomName) {
     this.roomsRef.push({
-      name: newRoomName,
+    name: newRoomName,
     });
     this.setState({ newRoomName: '' });
-  }
+}
 
 handleChange(event) {
     this.setState({newRoomName: event.target.value });
-  }
+}
 
 render () {
   return (
@@ -46,7 +46,7 @@ render () {
           {
             this.state.rooms.map( (room, index) =>
             <li className="room" key={index}>
-            <button onClick={ () => this.props.openRoom(room) } className="room-name">{ room.name }</button>
+            <button onClick={ () => this.props.openRoom(room.key) } className="room-name">{ room.name }</button>
             </li>
               )
             }
