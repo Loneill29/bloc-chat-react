@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './MessageList.css'
+import './MessageList.css';
+import './User.js'
 
 class MessageList extends Component {
 constructor (props) {
@@ -8,12 +9,11 @@ constructor (props) {
     this.state = {
       messages: [],
       currentMessages: [],
-      username: "",
+      user: "",
       content: "",
       sentAt: "",
       newMessage: ""
    };
-
 this.messagesRef = this.props.firebase.database().ref('messages');
 }
 componentDidMount() {
@@ -26,10 +26,10 @@ componentDidMount() {
 componentWillReceiveProps(nextProps) {
     const currentRoom = nextProps.currentRoom;
     console.log(nextProps);
-    this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom)}, () => console.log(this.state));
+    this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom)});
 }
 createMessage(newMessage) {
-      this.messagesRef.push({
+    this.messagesRef.push({
     content: newMessage,
     });
     this.setState({ newMessage: '' }, {});
@@ -39,7 +39,6 @@ handleChange(event) {
 }
 
 render() {
-
   return (
     <div className="message-list">
       <div>
@@ -57,4 +56,5 @@ render() {
   );
  }
 }
+
 export default MessageList;
