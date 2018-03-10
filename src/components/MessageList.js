@@ -12,7 +12,7 @@ constructor (props) {
       user: "",
       content: "",
       sentAt: "",
-      newMessage: ""
+      newMessage: "",
    };
 this.messagesRef = this.props.firebase.database().ref('messages');
 }
@@ -23,26 +23,30 @@ componentDidMount() {
     this.setState({ messages: this.state.messages.concat( message ) })
     });
 }
+handleChange(event) {
+    this.setState({newMessage: event.target.value });
+}
 componentWillReceiveProps(nextProps) {
     const currentRoom = nextProps.currentRoom;
-    console.log(nextProps);
     this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom)});
 }
 createMessage(newMessage) {
     this.messagesRef.push({
     content: newMessage,
+    roomId: this.props.currentRoom
     });
-    this.setState({ newMessage: '' }, {});
+    this.setState({ newMessage: ""});
 }
-handleChange(event) {
-    this.setState({newMessage: event.target.value, sentAt: this.props.firebase.database.ServerValue.TIMESTAMP });
-}
-
 render() {
   return (
+  <div>
     <div className="message-list">
       <div>
         <h2>{this.state.currentRoom}</h2>
+        <form id="create-message" onSubmit={ (e) => { e.preventDefault(); this.createMessage(this.state.newMessage) } }>
+              <input type="text" value={ this.state.newMessage } onChange={ (e) => { this.handleChange(e) } }  name="newMessage" />
+              <input type="submit" value="Send"/>
+            </form>
       </div>
       {this.state.currentMessages.map( (message) =>
           <div>
@@ -53,6 +57,8 @@ render() {
          )
        }
     </div>
+
+  </div>
   );
  }
 }

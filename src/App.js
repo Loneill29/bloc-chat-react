@@ -33,7 +33,7 @@ openRoom(room) {
 render() {
       return (
         <div className= "App">
-          <User firebase={firebase} createUser={this.createUser.bind(this)} user={this.state.user} />
+         <User firebase={firebase} createUser={this.createUser.bind(this)} user={this.state.user} />
          <RoomList firebase= {firebase} currentRoom={this.state.currentRoomId} openRoom={(room) => {this.openRoom(room)} } user={this.state.user} />
          <MessageList firebase= {firebase} currentRoom={this.state.currentRoomId} user={this.state.user} />
          </div>
