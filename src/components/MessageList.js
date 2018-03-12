@@ -12,7 +12,8 @@ constructor (props) {
       user: "",
       content: "",
       sentAt: "",
-      newMessage: ""
+      newMessage: {},
+      newMessageContent: ""
    };
 this.messagesRef = this.props.firebase.database().ref('messages');
 }
@@ -23,36 +24,45 @@ componentDidMount() {
     this.setState({ messages: this.state.messages.concat( message ) })
     });
 }
+handleChange(event) {
+    this.setState({newMessageContent: event.target.value });
+}
 componentWillReceiveProps(nextProps) {
     const currentRoom = nextProps.currentRoom;
-    console.log(nextProps);
     this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom)});
 }
-createMessage(newMessage) {
+createMessage(newMessageContent) {
     this.messagesRef.push({
-    content: newMessage,
+    content: this.state.newMessageContent,
+    roomId: this.props.currentRoom,
+    user: this.props.user.displayName,
     });
-    this.setState({ newMessage: '' }, {});
+    this.setState({ newMessageContent: "", user: "", content: "",});
 }
-handleChange(event) {
-    this.setState({newMessage: event.target.value, sentAt: this.props.firebase.database.ServerValue.TIMESTAMP });
-}
-
 render() {
   return (
+  <div>
     <div className="message-list">
       <div>
         <h2>{this.state.currentRoom}</h2>
       </div>
       {this.state.currentMessages.map( (message) =>
-          <div>
-            <p className="user">{message.user}:</p>
+          <div key= {message.key}>
+            <p className="user">{this.state.user.displayName}:</p>
             <p className="content">{message.content}</p>
             <p className="time-sent">{message.sentAt}</p>
           </div>
          )
        }
+       <div>
+       <form id="create-message" onSubmit={ (e) => { e.preventDefault(); this.createMessage(this.state.newMessageContent) } }>
+             <input type="text" value={ this.state.newMessageContent } onChange={ (e) => { this.handleChange(e) } }  name="newMessage" />
+             <input type="submit" value="Send"/>
+           </form>
+           </div>
     </div>
+
+  </div>
   );
  }
 }
