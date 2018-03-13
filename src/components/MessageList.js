@@ -30,26 +30,28 @@ componentWillReceiveProps(nextProps) {
     const currentRoom = nextProps.currentRoom;
     this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom)});
 }
-createMessage(newMessage) {
+createMessage(newMessage, currentRoom) {
     this.messagesRef.push({
     content: newMessage,
-    roomId: this.props.currentRoom
-    });
-    this.setState({ newMessage: ""});
+    roomId: this.props.currentRoom,
+    user: this.props.user ? this.props.user.displayName : 'Guest',
+    sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
+  },
+    () => this.setState({ newMessage: "", currentMessages: this.state.messages.filter( message => message.roomId === currentRoom) }));
 }
 render() {
   return (
   <div>
     <div className="message-list">
       <div>
-        <h2>{this.state.currentRoom}</h2>
-        <form id="create-message" onSubmit={ (e) => { e.preventDefault(); this.createMessage(this.state.newMessage) } }>
+        <h2>Room {this.props.currentRoom}</h2>
+        <form id="create-message" onSubmit={ (e) => { e.preventDefault(); this.createMessage(this.state.newMessage, this.props.currentRoom) } }>
               <input type="text" value={ this.state.newMessage } onChange={ (e) => { this.handleChange(e) } }  name="newMessage" />
               <input type="submit" value="Send"/>
             </form>
       </div>
       {this.state.currentMessages.map( (message) =>
-          <div>
+          <div className="new-message" key={message.key}>
             <p className="user">{message.user}:</p>
             <p className="content">{message.content}</p>
             <p className="time-sent">{message.sentAt}</p>

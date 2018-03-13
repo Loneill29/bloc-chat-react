@@ -19,12 +19,12 @@ class App extends Component {
 constructor(props) {
     super(props);
       this.state = {
-        currentRoomId: 0,
-        user: 0
+        currentRoomId: 1,
+        user: 0,
     };
 }
 createUser(user) {
-    this.setState({user: user});
+    this.setState({user: user}, () => console.log(user));
 }
 openRoom(room) {
     this.setState({currentRoomId: room});
