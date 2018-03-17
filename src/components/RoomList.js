@@ -18,6 +18,9 @@ componentDidMount() {
     room.key = snapshot.key;
     this.setState({ rooms: this.state.rooms.concat( room ) })
     });
+    this.roomsRef.on('child_removed', snapshot  => {
+    this.setState({ rooms: this.state.rooms.filter( room => room.key !== snapshot.key )  })
+   });
 }
 createRoom(newRoomName) {
   if (!this.props.user || !newRoomName) { return }
@@ -25,6 +28,9 @@ createRoom(newRoomName) {
      name: newRoomName,
      });
     this.setState({ newRoomName: '' });
+}
+deleteRoom(room) {
+  this.roomsRef.child(room.key).remove();
 }
 handleChange(event) {
     this.setState({newRoomName: event.target.value });
@@ -43,6 +49,7 @@ render () {
             this.state.rooms.map( (room, index) =>
             <li className="room" key={index}>
             <button onClick={ () => this.props.openRoom(room.key) } className="room-name">{ room.name }</button>
+            <button onClick={ () => this.deleteRoom(room) } className="delete-room">Remove</button>
             </li>
               )
             }
