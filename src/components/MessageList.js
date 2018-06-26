@@ -23,9 +23,6 @@ componentDidMount() {
     this.setState({ messages: this.state.messages.concat( message ) })
     });
 }
-handleChange(event) {
-    this.setState({newMessage: event.target.value });
-}
 componentWillReceiveProps(nextProps) {
     const currentRoom = nextProps.currentRoom;
     this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom)});
@@ -38,6 +35,13 @@ createMessage(newMessage, currentRoom) {
     sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
   },
     () => this.setState({ newMessage: "", currentMessages: this.state.messages.filter( message => message.roomId === currentRoom) }));
+}
+deleteMessage(currentRoom) {
+  this.messagesRef.child(currentRoom.key).remove();
+  () => this.setState({ currentMessages: this.state.messages.filter( message => message.roomId === currentRoom) });
+}
+handleChange(event) {
+    this.setState({newMessage: event.target.value });
 }
 render() {
   return (
@@ -55,6 +59,7 @@ render() {
             <p className="user">{message.user}:</p>
             <p className="content">{message.content}</p>
             <p className="time-sent">{message.sentAt}</p>
+            <button onClick={ () => this.deleteMessage(message) } className="delete-message">Delete</button>
           </div>
          )
        }
