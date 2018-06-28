@@ -19,23 +19,23 @@ class App extends Component {
 constructor(props) {
     super(props);
       this.state = {
-        currentRoomId: 1,
         user: 0,
+        currentRoom: ""
     };
 }
 createUser(user) {
     this.setState({user: user}, () => console.log(user));
 }
 openRoom(room) {
-    this.setState({currentRoomId: room});
+    this.setState({currentRoom: room});
 }
 
 render() {
       return (
         <div className= "App">
          <User firebase={firebase} createUser={this.createUser.bind(this)} user={this.state.user} />
-         <RoomList firebase= {firebase} currentRoom={this.state.currentRoomId} openRoom={(room) => {this.openRoom(room)} } user={this.state.user} />
-         <MessageList firebase= {firebase} currentRoom={this.state.currentRoomId} user={this.state.user} />
+         <RoomList firebase= {firebase} currentRoom={this.state.currentRoom} openRoom={(room) => {this.openRoom(room)} } user={this.state.user} />
+         <MessageList firebase= {firebase} currentRoom={this.state.currentRoom} openRoom={(room) => {this.openRoom(room)} } user={this.state.user} />
          </div>
    );
   }
