@@ -39,17 +39,19 @@ handleChange(event) {
 render () {
   return (
     <section className="sidebar">
-      <h1>Bloc Chat</h1>
+      <h1>Chat Rooms</h1>
       <form id="add-room" onSubmit={ (e) => { e.preventDefault(); this.createRoom(this.state.newRoomName) } }>
         <input className="textInput" type="text" value={ this.state.newRoomName } onChange={ (e) => { this.handleChange(e) } } name="newRoomName"/>
-        <input type="submit" value="New Room" />
+        <input type="submit" value="Add Room" />
       </form>
         <ul className="room-list">
           {
             this.state.rooms.map( (room, index) =>
             <li className="room" key={index}>
-            <button onClick={ () => this.props.openRoom(room.key) } className="room-name">{ room.name }</button>
-            <button onClick={ () => this.deleteRoom(room) } className="delete-room">Remove</button>
+            <div className="room-btn">
+              <button className="room-name-btn" onClick={ () => this.props.openRoom(room.key) } >{ room.name }</button>
+              <button onClick={ () => this.deleteRoom(room) } className="delete-room">X</button>
+              </div>
             </li>
               )
             }

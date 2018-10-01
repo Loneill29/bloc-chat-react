@@ -3,6 +3,9 @@ import  RoomList  from './components/RoomList.js';
 import MessageList from './components/MessageList.js';
 import User from './components/User.js';
 import * as firebase from 'firebase';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
 
   var config = {
     apiKey: "AIzaSyCysvxMJaw25C0hvFpO5rKowNEkhIyjCpw",
