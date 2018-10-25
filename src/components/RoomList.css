@@ -1,35 +1,20 @@
 html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-.sidebar {
-  padding-top: 20px;
-  height: 100vh;
-  width: 20%;
-  background-color: #40b3c1;
-}
-.sidebar h1 {
-  display: inline;
-  color: white;
-  padding-top: 30px;
-  padding-left: 30px;
-}
-.room-list {
-  list-style-type: none;
-  padding: 10px;
-}
-.room-list li {
-  color: white;
-  padding: 20px;
-  padding-left: 35px;
-}
-#add-room {
-  padding-top: 20px;
-  padding-left: 15px;
-  margin-right: 25px;
-}
 
-#add-room .textInput {
-  margin-right: 10px;
+}
+.background {
+  background: url(chitchat.png) no-repeat top center fixed;
+  min-height: 100%;
+min-width: 1024px;
+width: 100%;
+height: auto;
+position: fixed;
+top: 0;
+left: 0;
+z-index: -1;
+}
+h1 {
+  font-family: 'Montserrat', ,monospace;
+  text-align: center;
+  margin-top: 100px;
+
 }

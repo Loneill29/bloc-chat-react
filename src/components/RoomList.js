@@ -36,24 +36,21 @@ handleChange(event) {
 
 render () {
   return (
-    <section className="sidebar">
-      <h1>Bloc Chat</h1>
-      <form id="add-room" onSubmit={ (e) => { e.preventDefault(); this.createRoom(this.state.newRoomName) } }>
-        <input className="textInput" type="text" value={ this.state.newRoomName } onChange={ (e) => { this.handleChange(e) } } name="newRoomName"/>
-        <input type="submit" value="New Room" />
-      </form>
-        <ul className="room-list">
-          {
-            this.state.rooms.map( (room, index) =>
-            <li className="room" key={index}>
-              {room.name}
-            </li>
-              )
-            }
-          </ul>
-    </section>
-    );
-  }
+<section>
+    <div id='container'>
+        <div id='body'>
+        <img src={'./public/chitchat.png'} className="background"/>
+            <div>
+                <h1>ChitChat
+                </h1>
+                <p>Talk to your friends</p>
+                <img src="/text-bubble.jpg"/>
+            </div>
+        </div>
+     </div>
+</section>
+   );
+ }
 }
 
 export default RoomList;
